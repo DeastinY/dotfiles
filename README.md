@@ -1,5 +1,2 @@
 # My Dotfiles
-
-autos.sh to connect to the work cluster
-
-
+Hyprland Config is to be pasted into the corresponding current distro/flavor
