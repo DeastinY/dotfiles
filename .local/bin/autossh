@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# Retrieve the SSH password and TOTP from Bitwarden
+BW_ITEM_ID="2fd8caa4-74a7-4a93-a4f6-b32400a32c76"
+PASSWORD=$(bw get password $BW_ITEM_ID)
+TOTP=$(bw get totp $BW_ITEM_ID)
+
+expect -c "
+spawn ssh -o \"PreferredAuthentications=keyboard-interactive\" -o \"PubkeyAuthentication=no\" work
+expect \"Password:\"
+send \"$PASSWORD\r\"
+expect \"Two-factor code:\"
+sleep 2
+send \"$TOTP\r\"
+interact
+"

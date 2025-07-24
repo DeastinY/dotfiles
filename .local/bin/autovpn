@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Retrieve the SSH password and TOTP from Bitwarden
+BW_ITEM_ID="987fd15b-4d3e-4cf0-881c-85ed5500bb6d"
+PASSWORD=$(bw get password $BW_ITEM_ID)
+TOTP=$(bw get totp $BW_ITEM_ID)
+
+# Pipe the password and TOTP into openconnect
+(echo $PASSWORD; sleep 1; echo $TOTP) | sudo openconnect https://vpn.rwth-aachen.de --useragent=AnyConnect --user ec923888 --passwd-on-stdin --authgroup "RWTH-VPN (Full Tunnel)"⏎     
